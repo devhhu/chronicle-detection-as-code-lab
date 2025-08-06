@@ -1,0 +1,13 @@
+{
+  "event_type": "LOGIN",
+  "is_admin": true,
+  "geo_country_code": "RU",
+  "principal": {
+    "email": "admin@example.com"
+  },
+  "metadata": {
+    "product": "gcp",
+    "service": "login"
+  },
+  "timestamp": "2025-08-06T12:00:00Z"
+}
