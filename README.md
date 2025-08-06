@@ -29,6 +29,7 @@ Engineering Parts:
 * Docker container running fluentd
 * UDM-compatible synthetic logs
 * Custom Python detection engine and alert creation
+* Another script to generate logs for fluentd
 
 Detection Life Cycle Management:
 * Detection logic in YAML/ YARA-L format
