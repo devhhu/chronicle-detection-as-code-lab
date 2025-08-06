@@ -1,43 +1,49 @@
 import json
+import os
 from pathlib import Path
 from collections import defaultdict
-from datetime import datetime, timedelta
-import yaml
+from datetime import datetime, timedelta, timezone
 
-RULES_DIR = Path(__file__).resolve().parent.parent / "rules"
-ALERTS_DIR = Path(__file__).resolve().parent.parent / "alerts"
+# === Paths ===
+BASE_DIR = Path(__file__).resolve().parent.parent
+LOG_DIR = BASE_DIR / "processed-logs"
+ALERTS_DIR = BASE_DIR / "alerts"
 ALERTS_DIR.mkdir(exist_ok=True)
 
+# === Helper ===
+def current_utc_time():
+    return datetime.now(timezone.utc).isoformat()
 
-LOG_DIR = Path(__file__).resolve().parent.parent / "processed-logs"
+# === Load log file ===
+try:
+    log_file = next(LOG_DIR.rglob("*.log"))
+except StopIteration:
+    print("No log file found.")
+    exit(1)
 
-def load_yaml_rules():
-    rules = []
-    for rule_file in RULES_DIR.glob("*.yml"):
-        with open(rule_file) as f:
-            rules.append(yaml.safe_load(f))
-    return rules
+def load_all_logs():
+    with open(log_file, "r") as f:
+        return [json.loads(line) for line in f if line.strip().startswith("{")]
 
+# === Rule: Suspicious Admin Login from High-Risk Countries ===
 def match_suspicious_admin_login(event):
-    try:
-        is_admin = event.get("geo", {}).get("is_admin")
-        event_type = event.get("event_type")
-        country = event.get("geo", {}).get("country")
-        return event_type == "LOGIN" and is_admin is True and country not in ["GB", "US", "CA"]
-    except Exception as e:
-        return False
+    is_admin = event.get("geo", {}).get("is_admin", False)
+    event_type = event.get("event_type")
+    country = event.get("geo", {}).get("country")
+    return event_type == "LOGIN" and is_admin and country in {"RU", "CN", "IN"}
 
+# === Rule: Impossible Travel Detection ===
 def match_impossible_travel(events):
     user_logins = defaultdict(list)
     suspicious = []
 
     for event in events:
         try:
-            timestamp = datetime.fromisoformat(event["metadata"]["event_timestamp"].replace("Z", "+00:00"))
+            timestamp = datetime.fromisoformat(event["metadata"]["event_timestamp"])
             email = event["principal"]["email_addresses"][0]
             country = event["geo"]["country"]
             user_logins[email].append((timestamp, country, event))
-        except Exception:
+        except:
             continue
 
     for email, logs in user_logins.items():
@@ -49,84 +55,84 @@ def match_impossible_travel(events):
                 suspicious.append((e1, e2))
     return suspicious
 
-def load_all_logs():
-    logs = []
-    for file in LOG_DIR.rglob("*.log"):
-        try:
-            with open(file, "r") as f:
-                for line in f:
-                    if line.strip().startswith("{"):
-                        logs.append(json.loads(line))
-        except Exception:
-            continue
-    return logs
-def alert(event, rule_title, severity):
-    alert = {
-        "rule": rule_title,
-        "severity": severity,
-        "timestamp": event["metadata"]["event_timestamp"],
-        "principal": event["principal"]["email_addresses"][0],
-        "country": event["geo"]["country"],
-        "ip": event["network"]["ip"]
-    }
-    print("\n[+]------ New detection -----[+]")
-    print(json.dumps(alert, indent=2))
+# === Rule: High Volume Logins by Country ===
+def match_thresholded_logins(events, threshold=3, window_minutes=10):
+    country_buckets = defaultdict(list)
+    alerts = []
 
+    for event in events:
+        try:
+            if event.get("event_type") != "LOGIN":
+                continue
+            timestamp = datetime.fromisoformat(event["metadata"]["event_timestamp"])
+            country = event["geo"]["country"]
+            country_buckets[country].append((timestamp, event))
+        except:
+            continue
+
+    for country, logs in country_buckets.items():
+        logs.sort()
+        window = timedelta(minutes=window_minutes)
+        for i in range(len(logs)):
+            count = 1
+            window_logs = [logs[i][1]]
+            for j in range(i + 1, len(logs)):
+                if logs[j][0] - logs[i][0] <= window:
+                    count += 1
+                    window_logs.append(logs[j][1])
+                else:
+                    break
+            if count >= threshold:
+                alerts.append({
+                    "rule_name": f"High Volume Login from {country}",
+                    "severity": "MEDIUM",
+                    "event_count": count,
+                    "events": window_logs,
+                    "alert_generated_at": current_utc_time()
+                })
+                break  # Only one alert per country
+    return alerts
+
+# === MAIN ===
 if __name__ == "__main__":
     all_logs = load_all_logs()
+
     if not all_logs:
         print("No log entries found.")
         exit(0)
 
-    rules = load_yaml_rules()
+    # === Suspicious Admin Login ===
+    suspicious_admins = list(filter(match_suspicious_admin_login, all_logs))
+    print(f"\n[+] Suspicious Admin Logins: {len(suspicious_admins)}")
+    print(json.dumps(suspicious_admins, indent=2))
 
-    for rule in rules:
-        print(f"\n== Running Rule: {rule['name']} ==")
-        if not rule.get("enabled", False):
-            print(f"Rule {rule['name']} is disabled.")
-            continue
+    with open(ALERTS_DIR / "suspicious_admin_login_alerts.json", "w") as f:
+        json.dump({
+            "rule_name": "Suspicious Admin Login",
+            "severity": "HIGH",
+            "alert_generated_at": current_utc_time(),
+            "alerts": suspicious_admins
+        }, f, indent=2)
 
-        logic = rule.get("logic")
-        alerts = []
+    # === Impossible Travel Events ===
+    impossible_travels = match_impossible_travel(all_logs)
+    print(f"\n[+] Impossible Travel Events: {len(impossible_travels)}")
 
-        if logic == "impossible_travel":
-            for e1, e2 in match_impossible_travel(all_logs):
-                alert = {
-                    "rule_name": rule["name"],
-                    "detected_at": datetime.utcnow().isoformat() + "Z",
-                    "details": {
-                        "email": e1["principal"]["email_addresses"][0],
-                        "countries": [e1["geo"]["country"], e2["geo"]["country"]],
-                        "time_diff_minutes": (
-                            datetime.fromisoformat(e2["metadata"]["event_timestamp"]) -
-                            datetime.fromisoformat(e1["metadata"]["event_timestamp"])
-                        ).seconds // 60
-                    },
-                    "severity": rule["severity"]
-                }
-                alerts.append(alert)
+    formatted = []
+    for e1, e2 in impossible_travels:
+        formatted.append({
+            "rule_name": "Impossible Travel",
+            "severity": "CRITICAL",
+            "matched_events": [e1, e2],
+            "alert_generated_at": current_utc_time()
+        })
 
-        elif logic == "suspicious_admin_login":
-            for e in filter(match_suspicious_admin_login, all_logs):
-                alert = {
-                    "rule_name": rule["name"],
-                    "detected_at": datetime.utcnow().isoformat() + "Z",
-                    "details": {
-                        "email": e["principal"]["email_addresses"][0],
-                        "country": e["geo"]["country"]
-                    },
-                    "severity": rule["severity"]
-                }
-                alerts.append(alert)
+    with open(ALERTS_DIR / "impossible_travel_alerts.json", "w") as f:
+        json.dump(formatted, f, indent=2)
 
-        if alerts:
-            for a in alerts:
-                print(json.dumps(a, indent=2))
+    # === Thresholded Login Volume Alerts ===
+    country_alerts = match_thresholded_logins(all_logs)
+    print(f"\n[+] Thresholded Login Bursts by Country: {len(country_alerts)}")
 
-            alert_file = ALERTS_DIR / f"{logic}_alerts.json"
-            with open(alert_file, "a") as f:
-                for a in alerts:
-                    f.write(json.dumps(a) + "\n")
-        else:
-            print("No alerts generated.")
-
+    with open(ALERTS_DIR / "high_volume_login_alerts.json", "w") as f:
+        json.dump(country_alerts, f, indent=2)

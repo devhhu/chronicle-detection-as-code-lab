@@ -1,33 +1,69 @@
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611239Z", "details": {"email": "user5@example.com", "countries": ["GB", "US"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611288Z", "details": {"email": "user5@example.com", "countries": ["US", "GB"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611294Z", "details": {"email": "user5@example.com", "countries": ["GB", "RU"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611297Z", "details": {"email": "user5@example.com", "countries": ["RU", "US"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611301Z", "details": {"email": "user5@example.com", "countries": ["US", "CA"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611305Z", "details": {"email": "user5@example.com", "countries": ["CA", "RU"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611309Z", "details": {"email": "user5@example.com", "countries": ["RU", "CA"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611312Z", "details": {"email": "user5@example.com", "countries": ["CA", "BR"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611316Z", "details": {"email": "user5@example.com", "countries": ["RU", "BR"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611319Z", "details": {"email": "user5@example.com", "countries": ["BR", "CA"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611326Z", "details": {"email": "user5@example.com", "countries": ["CA", "CN"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611329Z", "details": {"email": "user5@example.com", "countries": ["CN", "IN"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611333Z", "details": {"email": "user5@example.com", "countries": ["IN", "US"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611336Z", "details": {"email": "user4@example.com", "countries": ["BR", "CA"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611339Z", "details": {"email": "user4@example.com", "countries": ["CA", "US"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611342Z", "details": {"email": "user4@example.com", "countries": ["US", "CN"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611345Z", "details": {"email": "user4@example.com", "countries": ["CN", "GB"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611349Z", "details": {"email": "user4@example.com", "countries": ["GB", "IN"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611352Z", "details": {"email": "user4@example.com", "countries": ["CA", "GB"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611356Z", "details": {"email": "user4@example.com", "countries": ["GB", "CN"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611359Z", "details": {"email": "user3@example.com", "countries": ["BR", "US"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611362Z", "details": {"email": "user3@example.com", "countries": ["US", "BR"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611365Z", "details": {"email": "user3@example.com", "countries": ["BR", "CA"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611369Z", "details": {"email": "user3@example.com", "countries": ["CA", "CN"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611372Z", "details": {"email": "user3@example.com", "countries": ["CN", "GB"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611375Z", "details": {"email": "user3@example.com", "countries": ["CN", "GB"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611379Z", "details": {"email": "user2@example.com", "countries": ["RU", "US"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611384Z", "details": {"email": "user2@example.com", "countries": ["US", "RU"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611388Z", "details": {"email": "user2@example.com", "countries": ["US", "CN"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611391Z", "details": {"email": "user1@example.com", "countries": ["CN", "GB"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611396Z", "details": {"email": "user1@example.com", "countries": ["GB", "IN"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611399Z", "details": {"email": "user1@example.com", "countries": ["IN", "GB"], "time_diff_minutes": 0}, "severity": "high"}
-{"rule_name": "Impossible Travel", "detected_at": "2025-08-06T13:31:39.611402Z", "details": {"email": "user1@example.com", "countries": ["GB", "BR"], "time_diff_minutes": 0}, "severity": "high"}
+[
+  {
+    "rule_name": "Impossible Travel",
+    "severity": "CRITICAL",
+    "matched_events": [
+      {
+        "metadata": {
+          "event_timestamp": "2025-08-06T13:07:14.148646+00:00",
+          "ingested_timestamp": "2025-08-06T13:07:14.148646+00:00"
+        },
+        "product": "gcp",
+        "event_type": "LOGIN",
+        "vendor_name": "Google",
+        "principal": {
+          "email_addresses": [
+            "user5@example.com"
+          ],
+          "ip": "3.32.132.92",
+          "hostname": "host-3-32-132-92.googlellc.com"
+        },
+        "geo": {
+          "country": "US",
+          "is_admin": true
+        },
+        "network": {
+          "asn": "AS15169",
+          "asn_name": "Google LLC",
+          "ip": "3.32.132.92",
+          "reverse_dns": "host-3-32-132-92.googlellc.com"
+        },
+        "security_result": {
+          "severity": "MEDIUM",
+          "rule_name": "None"
+        }
+      },
+      {
+        "metadata": {
+          "event_timestamp": "2025-08-06T13:07:31.604613+00:00",
+          "ingested_timestamp": "2025-08-06T13:07:31.604613+00:00"
+        },
+        "product": "gcp",
+        "event_type": "LOGIN",
+        "vendor_name": "Google",
+        "principal": {
+          "email_addresses": [
+            "user5@example.com"
+          ],
+          "ip": "142.112.180.19",
+          "hostname": "host-142-112-180-19.teluscommunicationsinc..com"
+        },
+        "geo": {
+          "country": "CA",
+          "is_admin": true
+        },
+        "network": {
+          "asn": "AS852",
+          "asn_name": "TELUS Communications Inc.",
+          "ip": "142.112.180.19",
+          "reverse_dns": "host-142-112-180-19.teluscommunicationsinc..com"
+        },
+        "security_result": {
+          "severity": "LOW",
+          "rule_name": "None"
+        }
+      }
+    ],
+    "alert_generated_at": "2025-08-06T14:18:00.420085+00:00"
+  }
+]

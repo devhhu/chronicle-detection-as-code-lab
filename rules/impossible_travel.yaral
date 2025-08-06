@@ -1,0 +1,11 @@
+rule Impossible_Travel
+{
+  meta:
+    author = "your_name"
+    severity = "HIGH"
+    description = "Detects impossible travel based on login locations within short time window"
+
+  condition:
+    $login_event1.geo.country != $login_event2.geo.country and
+    time.delta($login_event1.metadata.event_timestamp, $login_event2.metadata.event_timestamp) < minutes(5)
+}

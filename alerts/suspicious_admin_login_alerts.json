@@ -1,7 +1,6 @@
-{"rule_name": "Suspicious Admin Login", "detected_at": "2025-08-06T13:31:39.610206Z", "details": {"email": "user4@example.com", "country": "CN"}, "severity": "medium"}
-{"rule_name": "Suspicious Admin Login", "detected_at": "2025-08-06T13:31:39.610246Z", "details": {"email": "user2@example.com", "country": "RU"}, "severity": "medium"}
-{"rule_name": "Suspicious Admin Login", "detected_at": "2025-08-06T13:31:39.610256Z", "details": {"email": "user1@example.com", "country": "IN"}, "severity": "medium"}
-{"rule_name": "Suspicious Admin Login", "detected_at": "2025-08-06T13:31:39.610264Z", "details": {"email": "user4@example.com", "country": "IN"}, "severity": "medium"}
-{"rule_name": "Suspicious Admin Login", "detected_at": "2025-08-06T13:31:39.610268Z", "details": {"email": "user5@example.com", "country": "BR"}, "severity": "medium"}
-{"rule_name": "Suspicious Admin Login", "detected_at": "2025-08-06T13:31:39.610275Z", "details": {"email": "user5@example.com", "country": "RU"}, "severity": "medium"}
-{"rule_name": "Suspicious Admin Login", "detected_at": "2025-08-06T13:31:39.610279Z", "details": {"email": "user3@example.com", "country": "CN"}, "severity": "medium"}
+{
+  "rule_name": "Suspicious Admin Login",
+  "severity": "HIGH",
+  "alert_generated_at": "2025-08-06T14:18:00.419730+00:00",
+  "alerts": []
+}

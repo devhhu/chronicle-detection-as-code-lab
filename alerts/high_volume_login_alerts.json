@@ -1,0 +1,130 @@
+[
+  {
+    "rule_name": "High Volume Login from CA",
+    "severity": "MEDIUM",
+    "event_count": 4,
+    "events": [
+      {
+        "metadata": {
+          "event_timestamp": "2025-08-06T13:07:29.552018+00:00",
+          "ingested_timestamp": "2025-08-06T13:07:29.552018+00:00"
+        },
+        "product": "gcp",
+        "event_type": "LOGIN",
+        "vendor_name": "Google",
+        "principal": {
+          "email_addresses": [
+            "user4@example.com"
+          ],
+          "ip": "184.108.217.157",
+          "hostname": "host-184-108-217-157.teluscommunicationsinc..com"
+        },
+        "geo": {
+          "country": "CA",
+          "is_admin": true
+        },
+        "network": {
+          "asn": "AS852",
+          "asn_name": "TELUS Communications Inc.",
+          "ip": "184.108.217.157",
+          "reverse_dns": "host-184-108-217-157.teluscommunicationsinc..com"
+        },
+        "security_result": {
+          "severity": "HIGH",
+          "rule_name": "None"
+        }
+      },
+      {
+        "metadata": {
+          "event_timestamp": "2025-08-06T13:07:31.604613+00:00",
+          "ingested_timestamp": "2025-08-06T13:07:31.604613+00:00"
+        },
+        "product": "gcp",
+        "event_type": "LOGIN",
+        "vendor_name": "Google",
+        "principal": {
+          "email_addresses": [
+            "user5@example.com"
+          ],
+          "ip": "142.112.180.19",
+          "hostname": "host-142-112-180-19.teluscommunicationsinc..com"
+        },
+        "geo": {
+          "country": "CA",
+          "is_admin": true
+        },
+        "network": {
+          "asn": "AS852",
+          "asn_name": "TELUS Communications Inc.",
+          "ip": "142.112.180.19",
+          "reverse_dns": "host-142-112-180-19.teluscommunicationsinc..com"
+        },
+        "security_result": {
+          "severity": "LOW",
+          "rule_name": "None"
+        }
+      },
+      {
+        "metadata": {
+          "event_timestamp": "2025-08-06T13:07:33.637843+00:00",
+          "ingested_timestamp": "2025-08-06T13:07:33.637843+00:00"
+        },
+        "product": "gcp",
+        "event_type": "LOGIN",
+        "vendor_name": "Google",
+        "principal": {
+          "email_addresses": [
+            "user5@example.com"
+          ],
+          "ip": "184.108.153.211",
+          "hostname": "host-184-108-153-211.teluscommunicationsinc..com"
+        },
+        "geo": {
+          "country": "CA",
+          "is_admin": true
+        },
+        "network": {
+          "asn": "AS852",
+          "asn_name": "TELUS Communications Inc.",
+          "ip": "184.108.153.211",
+          "reverse_dns": "host-184-108-153-211.teluscommunicationsinc..com"
+        },
+        "security_result": {
+          "severity": "HIGH",
+          "rule_name": "None"
+        }
+      },
+      {
+        "metadata": {
+          "event_timestamp": "2025-08-06T13:07:35.671283+00:00",
+          "ingested_timestamp": "2025-08-06T13:07:35.671283+00:00"
+        },
+        "product": "gcp",
+        "event_type": "LOGIN",
+        "vendor_name": "Google",
+        "principal": {
+          "email_addresses": [
+            "user3@example.com"
+          ],
+          "ip": "142.112.36.166",
+          "hostname": "host-142-112-36-166.teluscommunicationsinc..com"
+        },
+        "geo": {
+          "country": "CA",
+          "is_admin": true
+        },
+        "network": {
+          "asn": "AS852",
+          "asn_name": "TELUS Communications Inc.",
+          "ip": "142.112.36.166",
+          "reverse_dns": "host-142-112-36-166.teluscommunicationsinc..com"
+        },
+        "security_result": {
+          "severity": "HIGH",
+          "rule_name": "None"
+        }
+      }
+    ],
+    "alert_generated_at": "2025-08-06T14:18:00.420655+00:00"
+  }
+]
