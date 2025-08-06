@@ -1,3 +1,4 @@
+```mermaid
 flowchart TD
     subgraph Docker_Env [🧱 Docker Environment]
         A[📦 log_emitter.py <br> (Generates fake UDM logs)]
@@ -47,3 +48,4 @@ flowchart TD
     click H "docs/udm_fields_reference.md" _blank
     click I "terraform/datasources/log_source.tf" _blank
     click J "terraform/rules/yara_rules.tf" _blank
+```
