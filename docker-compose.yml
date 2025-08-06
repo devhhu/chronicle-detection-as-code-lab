@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  log-emitter:
+    build:
+      context: ./docker-log-generator
+    container_name: log-emitter
+    restart: always
+
+  fluentd:
+    image: fluent/fluentd:v1.16-1
+    container_name: fluentd
+    volumes:
+      - ./fluentd/fluent.conf:/fluentd/etc/fluent.conf
+      - ./processed-logs:/fluentd/log
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    restart: always

@@ -1,0 +1,6 @@
+name: Impossible Travel
+description: Detects logins from different countries within 5 minutes
+type: correlation
+logic: impossible_travel
+severity: high
+enabled: true

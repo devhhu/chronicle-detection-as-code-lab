@@ -1,31 +1,6 @@
-title: Suspicious Admin Login
-id: cbe45e6f-77d6-4ef2-a0b9-03a5ff4f9983
-description: Detects admin logins from countries outside the approved list
-status: experimental
-author: husseih8
-date: 2025/08/06
-
-logsource:
-  product: gcp
-  service: login
-  category: authentication
-
-detection:
-  selection:
-    event_type: "LOGIN"
-    is_admin: true
-    geo_country_code|not_in:
-      - GB
-      - US
-      - CA
-  condition: selection
-
-level: high
-tags:
-  - attack.T1078
-  - secops
-  - chronicle
-x_chronicle_note:
-  log_format: "UDM"
-  detection_trigger: "Admin login from non-allowlisted country"
-  deployed_via: "Google SecOps UI or Detection API"
+name: Suspicious Admin Login
+description: Detects admin logins from high-risk countries
+type: pattern
+logic: suspicious_admin_login
+severity: medium
+enabled: true
