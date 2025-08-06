@@ -1,0 +1,4 @@
+reference_lists:
+  - name: "Private IP Ranges"
+    file: reference_lists/private_ip_ranges.txt
+    type: CIDR

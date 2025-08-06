@@ -1,0 +1,4 @@
+rules:
+  - rule_file: rules/impossible_travel.yaral
+    display_name: "Impossible Travel"
+    enabled: true
