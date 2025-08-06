@@ -1,8 +1,8 @@
 # Mapping Simulation to Google Chronicle (SecOps)
 
-This project simulates a detection-as-code workflow similar to Google Chronicle.
+This project simulates a detection-as-code workflow.
 
-## 🔗 Data Format
+## Data Format
 All logs are emitted in a **UDM-like structure** inspired by Google's Unified Data Model.
 
 Example:
