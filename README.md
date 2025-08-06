@@ -3,7 +3,7 @@
 
 This project simulates the Detection-as-Code (DaC) lifecycle as it would operate in a Google Chronicle SecOps environment, all without needing access to a Chronicle license.
 
-Instead, I’ve reverse-engineered the expected detection flow using:
+Instead, I’ve reverse-engineered the expected detection flow, and later dive into how the Chronicle API would be highly leveraged:
 
 * UDM-compatible synthetic logs
 * Custom Python detection logic
