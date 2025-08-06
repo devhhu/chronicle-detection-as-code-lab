@@ -1,22 +1,15 @@
 
-# Detection-as-Code Lab (Google SecOps-Inspired)
+## Detection-as-Code Lab (Google SecOps-Inspired)
 
-This project simulates the Detection-as-Code (DaC) lifecycle as it would operate in a Google Chronicle SecOps environment, all without needing access to a Chronicle license.
+This project simulates the Detection-as-Code (DaC) lifecycle as it would operate in a Google Chronicle SecOps environment, this is more focused on a bare-bones build as getting access to a Chronicle license, is not an option.
 
-Instead, I’ve reverse-engineered the expected detection flow, and later dive into how the Chronicle API would be highly leveraged:
+Instead, I’ve decided to build this from a bottom up approach of the expected detection flow, and later dive into how the Chronicle API will fit into this picture:
 
-* UDM-compatible synthetic logs
-* Custom Python detection logic
-* YAML/YARA-L rules
-* Terraform-like IaC definitionsReference lists and CI-style simulation
-
-The goal is to mirror a real-life cloud-scale detection pipeline and demonstrate deep understanding of how Chronicle rules, log ingestion, and alert triage work.
-
-### Project Structure
+#### Project Structure
 ```
 .
 ├── `docker-log-generator/`      # Emits mock UDM logs to Fluentd
-├── `fluentd/`                  # Collects and buffers logs locally
+├── `fluentd/`                   # Collects and buffers logs locally
 ├── `processed-logs/udm_log/`    # Log sink (simulates Chronicle UDM ingestion)
 ├── `scripts/`                   # Custom Python logic to match logs with rules
 ├── `rules/`                     # YARA-L and YAML rule definitions
@@ -30,20 +23,20 @@ The goal is to mirror a real-life cloud-scale detection pipeline and demonstrate
 └── `tests/`                     # Rule test cases
 ```
 
-### Project Goal
+#### Project Goal
 
-Engineering:
-* Sample UDM event generation
-* Log forwarding via Fluentd
-* Python detection engine to process and alert
+Engineering Parts:
+* Docker container running fluentd
+* UDM-compatible synthetic logs
+* Custom Python detection engine and alert creation
 
 Detection Life Cycle Management:
-* Detection logic in YARA-L format
-* Terraform IaC to manage rules and data sources
+* Detection logic in YAML/ YARA-L format
+* Looking into Terraform IaC to manage rules and data sources
 * Simulated GitOps model for lifecycle management
 
 
-### High-Level Architecture
+#### High-Level Architecture
 
 <img width="1864" height="1004" alt="image" src="https://github.com/user-attachments/assets/b6de6b23-e013-4545-ae3c-bd855db7174b" />
 
@@ -81,7 +74,7 @@ Logs are consumed by a custom Python engine in `scripts/match_logs_from_fluentd.
 
 * Matching UDM fields against rule conditions
 * Cross-referencing with reference lists (e.g., internal IP ranges)
-* Emitting alerts to the alerts/ folder
+* Emitting alerts to the `alerts/` folder
 
 This simulates what Chronicle’s Detection Engine would do using the YARA-L rule format.
 
@@ -187,8 +180,8 @@ File Name: `gcp_audit_logsource.tf`
 
 In a real Chronicle deployment, these `.tf` files would use the Chronicle Terraform provider to push rules via API.
 
-### Summary
-#### How would leveraging Chronicle API help with Detection-as-Code
+#### Summary
+##### How would leveraging Chronicle API help with Detection-as-Code
 
 This is a more focused table of Chronicle APIs that will be useful for creating, updating, validating and managing detection content like rules, reference lists and data sources.
 ```
@@ -246,3 +239,9 @@ flowchart TD
 
 ```
 
+#### References
+
+- [Chronicle Detection Rules GitHub Repo](https://github.com/chronicle/detection-rules)
+- [Detection-as-Code in Google SecOps with Terraform (Medium)](https://medium.com/google-cloud/detection-as-code-in-google-secops-with-terraform-646de8967278)
+- [Getting Started with Detection-as-Code and Google SecOps (Part 2)](https://security.googlecloudcommunity.com/community-blog-42/getting-started-with-detection-as-code-and-google-secops-part-2-of-2-3890)
+- [YouTube – Detection as Code in Google Chronicle](https://www.youtube.com/watch?v=wCq4jd3UZEI)
