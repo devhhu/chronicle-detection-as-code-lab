@@ -1,26 +1,31 @@
 
 ## Detection-as-Code Lab (Google SecOps-Inspired)
 
-This project simulates the Detection-as-Code (DaC) lifecycle as it would operate in a Google Chronicle SecOps environment, this is more focused on a bare-bones build as getting access to a Chronicle license, is not an option.
+Experimental project simulating the `Detection-as-Code (DaC)` lifecycle as it would operate in a Google Chronicle SecOps environment, this is more focused on a bare-bones build as getting access to a Chronicle license, is not an option.
 
-Instead, I’ve decided to build this from a bottom up approach of the expected detection flow, and later dive into how the Chronicle API will fit into this picture:
+Instead, I’ve decided to build this from a bottom up approach of the expected detection flow, and later dive into how the Chronicle API will fit into this picture
+
+```
+Note: What's not included, as this is experimental
+- A full Detection-as-Code CI/CD pipeline which would contain (testing, validating content and use cases, linting and formatting) --> Will be something to  explore later.
+```
 
 #### Project Structure
 ```
 .
-├── `docker-log-generator/`      # Emits mock UDM logs to Fluentd
+├── `docker-log-generator/`      # Synthetic mock UDM logs to Fluentd
 ├── `fluentd/`                   # Collects and buffers logs locally
-├── `processed-logs/udm_log/`    # Log sink (simulates Chronicle UDM ingestion)
+├── `processed-logs/udm_log/`    # Logging sink (simulates Chronicle UDM ingestion)
 ├── `scripts/`                   # Custom Python logic to match logs with rules
 ├── `rules/`                     # YARA-L and YAML rule definitions
 ├── `reference_lists/`           # Chronicle-style reference lists (IP ranges, etc.)
 ├── `terraform/`                 # Example rule and datasource definitions (Chronicle-like)
-├── `secops_rules.yaml`          # DaC-friendly YAML defining rules to deploy
+├── `secops_rules.yaml`          # DaC-friendly YAML defining rules to deploy (How it would be operationalised)
 ├── `secops_reference_lists.yaml`
 ├── `alerts/`                    # Simulated alerts generated from matching rules
-├── `docs/`                      # Technical documentation
+├── `docs/`                      # Extra documentation
 ├── `Makefile`                   # Easy CLI for bringing the system up/down
-└── `tests/`                     # Rule test cases
+└── `tests/`                     # Rule test cases (to be continued)
 ```
 
 #### Project Goal
@@ -32,7 +37,7 @@ Engineering Parts:
 * Another script to generate logs for fluentd
 
 Detection Life Cycle Management:
-* Detection logic in YAML/ YARA-L format
+* Detection logic in YAML/ YARA-L format for handling
 * Looking into Terraform IaC to manage rules and data sources
 * Simulated GitOps model for lifecycle management
 
