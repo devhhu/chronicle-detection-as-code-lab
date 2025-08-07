@@ -4,17 +4,17 @@ from pathlib import Path
 from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 
-# === Paths ===
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOG_DIR = BASE_DIR / "processed-logs"
 ALERTS_DIR = BASE_DIR / "alerts"
 ALERTS_DIR.mkdir(exist_ok=True)
 
-# === Helper ===
+
 def current_utc_time():
     return datetime.now(timezone.utc).isoformat()
 
-# === Load log file ===
+
 try:
     log_file = next(LOG_DIR.rglob("*.log"))
 except StopIteration:
@@ -25,14 +25,14 @@ def load_all_logs():
     with open(log_file, "r") as f:
         return [json.loads(line) for line in f if line.strip().startswith("{")]
 
-# === Rule: Suspicious Admin Login from High-Risk Countries ===
+
 def match_suspicious_admin_login(event):
     is_admin = event.get("geo", {}).get("is_admin", False)
     event_type = event.get("event_type")
     country = event.get("geo", {}).get("country")
     return event_type == "LOGIN" and is_admin and country in {"RU", "CN", "IN"}
 
-# === Rule: Impossible Travel Detection ===
+
 def match_impossible_travel(events):
     user_logins = defaultdict(list)
     suspicious = []
@@ -55,7 +55,7 @@ def match_impossible_travel(events):
                 suspicious.append((e1, e2))
     return suspicious
 
-# === Rule: High Volume Logins by Country ===
+
 def match_thresholded_logins(events, threshold=3, window_minutes=10):
     country_buckets = defaultdict(list)
     alerts = []
@@ -69,7 +69,7 @@ def match_thresholded_logins(events, threshold=3, window_minutes=10):
             country_buckets[country].append((timestamp, event))
         except:
             continue
-
+# Sliding window here
     for country, logs in country_buckets.items():
         logs.sort()
         window = timedelta(minutes=window_minutes)
@@ -93,15 +93,15 @@ def match_thresholded_logins(events, threshold=3, window_minutes=10):
                 break  # Only one alert per country
     return alerts
 
-# === MAIN ===
+
 if __name__ == "__main__":
     all_logs = load_all_logs()
 
     if not all_logs:
         print("No log entries found.")
         exit(0)
+        
 
-    # === Suspicious Admin Login ===
     suspicious_admins = list(filter(match_suspicious_admin_login, all_logs))
     print(f"\n[+] Suspicious Admin Logins: {len(suspicious_admins)}")
     print(json.dumps(suspicious_admins, indent=2))
@@ -114,7 +114,7 @@ if __name__ == "__main__":
             "alerts": suspicious_admins
         }, f, indent=2)
 
-    # === Impossible Travel Events ===
+
     impossible_travels = match_impossible_travel(all_logs)
     print(f"\n[+] Impossible Travel Events: {len(impossible_travels)}")
 
@@ -130,7 +130,7 @@ if __name__ == "__main__":
     with open(ALERTS_DIR / "impossible_travel_alerts.json", "w") as f:
         json.dump(formatted, f, indent=2)
 
-    # === Thresholded Login Volume Alerts ===
+
     country_alerts = match_thresholded_logins(all_logs)
     print(f"\n[+] Thresholded Login Bursts by Country: {len(country_alerts)}")
 
