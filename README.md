@@ -181,8 +181,6 @@ You would need to add the UDM fields that are populated for your datasources in 
 
 File Name: `gcp_audit_logsource.tf`
 
-<img width="320" height="1136" alt="image" src="https://github.com/user-attachments/assets/49dd9a17-8045-474f-b3b3-80cd52a33d38" />
-
 
 In a real Chronicle deployment, these `.tf` files would use the Chronicle Terraform provider to push rules via API.
 
